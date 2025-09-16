@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Serif%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Eduardo Bendersky</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+      /* Estilos para menú móvil */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: 999;
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+
+      .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .mobile-menu-links a {
+        font-size: 1.25rem;
+        text-align: center;
+      }
+
+      .hamburger-icon {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .desktop-menu {
+          display: none;
+        }
+        .hamburger-icon {
+          display: block;
+          cursor: pointer;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex min-h-screen flex-col bg-white" style='font-family: "Noto Serif", "Noto Sans", sans-serif;'>
+      <div class="flex flex-col flex-1">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f5f0f2] px-4 md:px-10 py-3">
+          <div class="flex items-center gap-4 text-[#181014]">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-[#181014] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <!-- Botón de idioma siempre visible -->
+            <button
+              class="language-toggle flex min-w-[70px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-3 bg-[#f5f0f2] text-[#181014] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">ES/EN</span>
+            </button>
+            
+            <!-- Menú de escritorio -->
+            <div class="desktop-menu hidden md:flex items-center gap-6 lg:gap-9">
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="../index.html" data-i18n="nav.inicio">inicio</a> 
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="about.html" data-i18n="nav.trayectoria">Trayectoria</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="gallery.html" data-i18n="nav.galeria">Galería</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="contact.html" data-i18n="nav.contacto">Contacto</a>
+            </div>
+            
+            <!-- Icono hamburguesa para móvil -->
+            <button class="hamburger-icon md:hidden" id="mobile-menu-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </header>
+        
+        <!-- Menú móvil (oculto por defecto) -->
+        <div class="fixed inset-0 z-50 bg-white flex flex-col hidden" id="mobile-menu">
+          <div class="flex items-center justify-between p-4 border-b border-solid border-b-[#f5f0f2]">
+            <div class="flex items-center gap-4 text-[#181014]">
+              <div class="size-4">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h2 class="text-[#181014] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+            </div>
+            <button class="p-1" id="close-menu-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-col gap-6 p-6 text-lg">
+            <a class="text-[#181114] font-medium" href="../index.html" data-i18n="nav.inicio">inicio</a> 
+            <a class="text-[#181114] font-medium" href="about.html" data-i18n="nav.trayectoria">Trayectoria</a>
+            <a class="text-[#181114] font-medium" href="gallery.html" data-i18n="nav.galeria">Galería</a>
+            <a class="text-[#181114] font-medium" href="exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
+            <a class="text-[#181114] font-medium" href="contact.html" data-i18n="nav.contacto">Contacto</a>
+            <button
+              class="language-toggle mt-4 self-center flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f5f0f2] text-[#181014] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">ES/EN</span>
+            </button>
+          </div>
+        </div>
+        <div class="px-3 sm:px-6 md:px-10 lg:px-20 flex flex-1 justify-center py-3 sm:py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-2 sm:p-4"><p class="text-[#181014] tracking-light text-[24px] sm:text-[32px] font-bold leading-tight" data-i18n="exhibitions.titulo">Exposiciones</p></div>
+            
+            <!-- Sección de Exposiciones Individuales -->
+            <div class="px-2 sm:px-4 mb-6 sm:mb-8">
+              <h2 class="text-[#181014] text-lg sm:text-xl font-bold mb-3 sm:mb-4" data-i18n="exhibitions.individuales">Exposiciones Individuales</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div class="grid grid-cols-1 gap-y-4">
+
+                  <!-- 2001 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">2001</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Centro Cultural Recoleta - Bs As.</p>
+                  </div>
+
+                  <!-- 1993 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1993</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Galería Palatina - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1991 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1991</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Oleos", Galería Rubbers - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1990 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1990</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Septiembre, es elegido Jurado del "LXXIX Salón Nacional de Artes Plásticas", con sede en el Museo Provincial de Bellas Artes "Emilio A. Caraffa" - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1989 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1989</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pinturas" Galería Rubbers - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1986 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1986</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Galería Jacques Martínez - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1985 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1985</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Galería Jaime Conci - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1984 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1984</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Dibujos", Galería Marienbad - Bs As. Galería Jacques Martínez - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1982 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1982</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Oleos", Galería del Buen Ayre - Bs As. Galería Casona de Madera - Mar del Plata.</p>
+                  </div>
+                  
+                  <!-- 1980 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1980</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Oleos", Galería Vermeer - Bs As. Galería Feldman - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1979 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1979</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Dibujos", Galería Artemultiple - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1977 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1977</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Antología 1972-76", Galería Imagen - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1975 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1975</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Catorce Rostros", Galería Imagen - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1974 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1974</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Dibujos 1970-74", Galería Feldman - Córdoba. "Por el Camino de Ian-Van", Galería Imagen - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1973 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1973</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Las Moradas", Galería Imagen - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1972 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1972</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"De lo innombrable", Galería Imagen - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1971 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1971</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"12 intuiciones de lo innombrable", Galería Imagen - Bs As. "Oleos y Grafitos", Galería Feldman - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1969 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1969</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Oleos y Dibujos", Casa de Córdoba - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1968 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1968</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintura", Galería Feldman - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1966 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1966</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintura", Biblioteca Alberdi de Tucumán.</p>
+                  </div>
+                  
+                  <!-- 1965 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1965</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintura", Galería Lirolay - Bs As. "Pintura", Galería Feldman - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1955 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1955</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintura", Galería Paideia - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1951 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1951</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Galería Rembrandt - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1948 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1948</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintura", Galería Rembrandt - Córdoba.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Sección de Exposiciones Colectivas -->
+            <div class="px-2 sm:px-4">
+              <h2 class="text-[#181014] text-lg sm:text-xl font-bold mb-3 sm:mb-4" data-i18n="exhibitions.colectivas">Exposiciones Colectivas</h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                <div class="grid grid-cols-1 gap-y-4">
+                  <!-- 1993 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1993</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Fundación Alberto J Trabucco" Museo Nacional de Bellas Artes (Argentina) - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1992 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1992</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Primera Bienal de Pintura Espíritu de Grecia", Salas Nacionales de Exposiciones - Bs As. "Exposición de Galerías" (Arte B.A.) por la Galería Rubbers.</p>
+                  </div>
+                  
+                  <!-- 1991 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1991</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Forma y Color", Homenaje a Rembrandt - Patio Bullrich - Bs As. "El mar en el arte de los argentinos", Galería La Favorita - Rosario - Organizado por Zurbarán. Invitado a la muestra Premio Palanza - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1990 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1990</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Los signos del zodíaco", Galería Zurbarán - Bs As. "Homenaje a Victoria Ocampo", Galería Zurbarán - Mar del Plata.</p>
+                  </div>
+                  
+                  <!-- 1989 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1989</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Primera Exposición de obras donadas por artistas argentinos", Centro de Arte Contemporáneo - Córdoba.</p>
+                  </div>
+                  
+                
+                  
+                  <!-- 1987 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1987</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Galería Jack Martínez - Bs As.</p>
+                  </div>
+              
+                  
+                  <!-- 1985 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1985</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Invitado junto con artistas de 58 países a la 2.ª International Bienal Print Exhibit: 1985 ROC En el Taipéi Fine Arts Museum. Taiwán, China editándose un libro.</p>
+                  </div>
+                  
+                  <!-- 1984 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1984</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Tota pulera est", Museo de Arte Español Enrique Larreta - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1983 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1983</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Balcones" Galería Wildenstein - Bs As. Galería Marienbad - Bs As. Galería Buen Ayre - Bs As.</p>
+                  </div>
+
+                  <!-- 1981 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1981</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Misteriosa Buenos Aires", Galería del Buen Ayre - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1980 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1980</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Galería Casona de Madera - Mar del Plata. Galería Buen Ayre - Bs As. Dona dos obras al remate de la Fundación Favaloro.</p>
+                  </div>
+
+                  
+                  <!-- 1975 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1975</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Más allá de la pintura" Galería Martina Céspedes - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1974 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1974</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Aldo Pellegrini - In Memoriam", Galería Imagen - Bs As. "Obras de Arte Argentino Pequeño Formato", Galería Centoria - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1973 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1973</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"13 Artistas Argentinos" Galería Serra - Caracas Venezuela. "20 Pintores de Córdoba", Museo Genaro Pérez - Córdoba. "Forma y Color", Galería Martina Céspedes - Bs As. "Abstracción Mágica", Galería Art - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1972 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1972</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Homenaje a Maeterlink. Galería Arthea - Bs As. Vigencia de la "B". Galería Martina Céspedes - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1971 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1971</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Galería Mantua - Bs As.</p>
+                  </div>
+                  
+                  <!-- 1970 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1970</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintura Surrealista", Galería Mantua - Bs. As. Casa de Córdoba - Bs As. "Córdoba, Pintura Actual", Casa de Córdoba - Bs As (Tercer premio) "Lautreamont 100 años", Galería Gradiva - Bs As. "XVIII Salón de Artes Plásticas de Córdoba", Museo Provincial de Bellas Artes Emilio A. Caraffa - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1969 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1969</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Cinco Pintores Cordobeses" Casa de Córdoba - Bs As. "Salón Delegación de Córdoba" - Bs As - (Quito premio)</p>
+                  </div>
+                  
+                  <!-- 1968 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1968</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Córdoba pintura actual", Casa de Córdoba - Bs As. "Nuestros Pintores", Centro Unión Israelita de Córdoba - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1967 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1967</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintores de Córdoba", Museo Provincial de Bellas Artes Emilio Caraffa - Córdoba.</p>
+                  </div>
+                  
+                  <!-- 1966 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1966</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"I Salón Juvenil de Artes Plásticas de Córdoba" Museo Provincial de Bellas Artes Emilio Caraffa "Homenaje a Xul Solar", Museo Provincial de Bellas Artes Emilio Caraffa - Córdoba. "X Salón de Deán Funes" - Córdoba - (Primer premio)</p>
+                  </div>
+                  
+                  <!-- 1965 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1965</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"XIV Salón de Artes Plásticas de Córdoba", Museo Provincial de Bellas Artes Emilio Caraffa - Córdoba - (Tercer premio)</p>
+                  </div>
+
+                  
+                  <!-- 1950 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1950</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">"Pintura" La paz - Bolivia.</p>
+                  </div>
+                  
+                  <!-- 1960 -->
+                  <div class="flex flex-col">
+                    <p class="text-[#181014] text-base font-medium leading-normal">1949</p>
+                    <p class="text-[#8d5e75] text-base font-normal leading-normal">Tercer Salón de Artes Plásticas, Museo Genaro Pérez - Córdoba.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <footer class="w-full bg-white mt-8 sm:mt-16">
+      <div class="flex justify-center">
+        <div class="flex max-w-[960px] flex-1 flex-col">
+          <footer class="flex flex-col gap-4 sm:gap-6 px-3 sm:px-5 py-6 sm:py-10 text-center @container">
+            <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 @[480px]:flex-row @[480px]:justify-around">
+
+            </div>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href="#">
+                <div class="text-[#886375]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
+                    ></path>
+                  </svg>
+                </div>
+              </a>
+              <a href="#">
+                <div class="text-[#886375]" data-icon="FacebookLogo" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path>
+                  </svg>
+                </div>
+              </a>
+            </div>
+            <p class="text-[#886375] text-xs sm:text-base font-normal leading-normal" data-i18n="footer.derechos">© 2025 Eduardo Bendersky. All rights reserved.</p>
+          </footer>
+        </div>
+      </div>
+    </footer>
+    <!-- Script de traducciones -->
+    <script src="../js/translations.js"></script>
+    
+    <!-- Script para menú móvil -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+        
+        // Función para abrir el menú
+        function openMenu() {
+          mobileMenu.classList.remove('hidden');
+          document.body.style.overflow = 'hidden'; // Bloquear scroll
+        }
+        
+        // Función para cerrar el menú
+        function closeMenu() {
+          mobileMenu.classList.add('hidden');
+          document.body.style.overflow = ''; // Restaurar scroll
+        }
+        
+        // Event listeners
+        if (mobileMenuButton) {
+          mobileMenuButton.addEventListener('click', openMenu);
+        }
+        
+        if (closeMenuButton) {
+          closeMenuButton.addEventListener('click', closeMenu);
+        }
+        
+        // Cerrar menú al hacer clic en un enlace
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', closeMenu);
+        });
+      });
+    </script>
+  </body>
+</html>
+

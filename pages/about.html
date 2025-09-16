@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Serif%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Eduardo Bendersky</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+      html, body {
+        height: 100%;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+      }
+      main {
+        flex: 1 0 auto;
+        margin-bottom: 60px;
+      }
+      footer {
+        flex-shrink: 0;
+      }
+      
+      /* Estilos para menú móvil */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: 999;
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+
+      .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .mobile-menu-links a {
+        font-size: 1.25rem;
+        text-align: center;
+      }
+
+      .hamburger-icon {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .desktop-menu {
+          display: none;
+        }
+        .hamburger-icon {
+          display: block;
+          cursor: pointer;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-white" style='font-family: "Noto Serif", "Noto Sans", sans-serif;'>
+    <!-- Header -->
+    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f5f0f2] px-4 md:px-10 py-3">
+          <div class="flex items-center gap-4 text-[#181014]">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-[#181014] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <!-- Botón de idioma siempre visible -->
+            <button
+              class="language-toggle flex min-w-[70px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-3 bg-[#f5f0f2] text-[#181014] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">ES/EN</span>
+            </button>
+            
+            <!-- Menú de escritorio -->
+            <div class="desktop-menu hidden md:flex items-center gap-6 lg:gap-9">
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="../index.html" data-i18n="nav.inicio">inicio</a> 
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="about.html" data-i18n="nav.trayectoria">Trayectoria</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="gallery.html" data-i18n="nav.galeria">Galería</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="contact.html" data-i18n="nav.contacto">Contacto</a>
+            </div>
+            
+            <!-- Icono hamburguesa para móvil -->
+            <div class="hamburger-icon" id="hamburger-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </div>
+          </div>
+    </header>
+    
+    <!-- Menú móvil (oculto por defecto) -->
+    <div class="mobile-menu" id="mobile-menu">
+      <div class="mobile-menu-header">
+        <div class="flex items-center gap-4 text-[#181014]">
+          <div class="size-4">
+            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                clip-rule="evenodd"
+                d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                fill="currentColor"
+              ></path>
+            </svg>
+          </div>
+          <h2 class="text-[#181014] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+        </div>
+        <div class="close-menu" id="close-menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </div>
+      </div>
+      <div class="mobile-menu-links">
+        <a class="text-[#181114] font-medium" href="../index.html" data-i18n="nav.inicio">inicio</a> 
+        <a class="text-[#181114] font-medium" href="about.html" data-i18n="nav.trayectoria">Trayectoria</a>
+        <a class="text-[#181114] font-medium" href="gallery.html" data-i18n="nav.galeria">Galería</a>
+        <a class="text-[#181114] font-medium" href="exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
+        <a class="text-[#181114] font-medium" href="contact.html" data-i18n="nav.contacto">Contacto</a>
+        <button
+          class="language-toggle mt-4 self-center flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f5f0f2] text-[#181014] text-sm font-bold leading-normal tracking-[0.015em]"
+        >
+          <span class="truncate">ES/EN</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- Contenido principal -->
+    <main class="py-3 sm:py-5">
+      <div class="container mx-auto max-w-[960px] px-3 sm:px-6">
+            <div class="flex flex-wrap justify-between gap-3 p-2 sm:p-4"><p class="text-[#181014] tracking-light text-[24px] sm:text-[32px] font-bold leading-tight" data-i18n="about.titulo">Aspectos destacados de la carrera – Eduardo Bendersky</p></div>
+            
+            <!-- Contenedor principal con dos columnas -->
+            <div class="flex flex-col md:flex-row px-2 sm:px-4">
+              <!-- Columna izquierda para la biografía -->
+              <div class="flex-grow md:pr-6 mb-6 md:mb-0">
+                <!-- Early Formation and Influences -->
+                <div class="grid grid-cols-[40px_1fr] gap-x-2">
+              <div class="flex flex-col items-center gap-1 pt-3">
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                  style='background-image: url("../img/portada/Foto 028.jpg");'
+                ></div>
+                <div class="w-[1.5px] bg-[#e7dae0] h-2 grow"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#181014] text-base font-medium leading-normal" data-i18n="about.etapa1_titulo">Formación temprana e influencias</p>
+                <p class="text-[#8d5e75] text-base font-normal leading-normal" data-i18n="about.etapa1_fecha">1932–1951</p>
+                <p class="text-[#181014] text-sm font-normal leading-normal mt-2" data-i18n="about.etapa1_texto">Nacido en Córdoba, Argentina, en 1932, Bendersky comenzó sus estudios artísticos en la Academia de Bellas Artes de su ciudad natal, aunque no los completó formalmente. Desde temprano mostró una inclinación hacia la exploración visual profunda e introspectiva.</p>
+              </div>
+              
+              <!-- Paris and Artistic Expansion -->
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-[1.5px] bg-[#e7dae0] h-2"></div>
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                  style='background-image: url("../img/portada/Foto 028.jpg");'
+                ></div>
+                <div class="w-[1.5px] bg-[#e7dae0] h-2 grow"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#181014] text-base font-medium leading-normal" data-i18n="about.etapa2_titulo">Expansión artística en París</p>
+                <p class="text-[#8d5e75] text-base font-normal leading-normal" data-i18n="about.etapa2_fecha">1952–1962</p>
+                <p class="text-[#181014] text-sm font-normal leading-normal mt-2" data-i18n="about.etapa2_texto">Durante su primera residencia en París (1952-1962), vivió y trabajó inmerso en la escena artística europea. Estudió en el célebre Atelier 17 del grabador Stanley William Hayter, donde entró en contacto con corrientes del arte abstracto y surrealista. Su estilo comenzó a gestarse entre lo metafísico y lo introspectivo.</p>
+              </div>
+              
+              <!-- Latin American Journeys -->
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-[1.5px] bg-[#e7dae0] h-2"></div>
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                  style='background-image: url("../img/portada/Foto 028.jpg");'
+                ></div>
+                <div class="w-[1.5px] bg-[#e7dae0] h-2 grow"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#181014] text-base font-medium leading-normal" data-i18n="about.etapa3_titulo">Viajes por América Latina</p>
+                <p class="text-[#8d5e75] text-base font-normal leading-normal" data-i18n="about.etapa3_fecha">1963–1965</p>
+                <p class="text-[#181014] text-sm font-normal leading-normal mt-2" data-i18n="about.etapa3_texto">Viajó extensamente por Brasil, Perú, Bolivia, Centroamérica, Jamaica y Trinidad, experiencias que marcaron su mirada estética y simbólica. En 1965 obtuvo la beca del Fondo Nacional de las Artes, reconocimiento clave en su trayectoria.</p>
+              </div>
+              
+              <!-- Buenos Aires Period and Exhibitions -->
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-[1.5px] bg-[#e7dae0] h-2"></div>
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                  style='background-image: url("../img/portada/Foto 028.jpg");'
+                ></div>
+                <div class="w-[1.5px] bg-[#e7dae0] h-2 grow"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#181014] text-base font-medium leading-normal" data-i18n="about.etapa4_titulo">Período en Buenos Aires y exposiciones</p>
+                <p class="text-[#8d5e75] text-base font-normal leading-normal" data-i18n="about.etapa4_fecha">1966–1977</p>
+                <p class="text-[#181014] text-sm font-normal leading-normal mt-2" data-i18n="about.etapa4_texto">De regreso en Argentina, se instaló en Buenos Aires donde desarrolló una intensa actividad expositiva. Participó en muestras colectivas e individuales en galerías como Rubbers, Bonino y Lirolay. Su obra comenzó a ser reconocida por su originalidad y profundidad conceptual.</p>
+              </div>
+              
+              <!-- Return to Paris and Artistic Maturity -->
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-[1.5px] bg-[#e7dae0] h-2"></div>
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                  style='background-image: url("../img/portada/Foto 028.jpg");'
+                ></div>
+                <div class="w-[1.5px] bg-[#e7dae0] h-2 grow"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#181014] text-base font-medium leading-normal" data-i18n="about.etapa5_titulo">Regreso a París y madurez artística</p>
+                <p class="text-[#8d5e75] text-base font-normal leading-normal" data-i18n="about.etapa5_fecha">1977–1979</p>
+                <p class="text-[#181014] text-sm font-normal leading-normal mt-2" data-i18n="about.etapa5_texto">Regresó a París por un breve pero significativo período de dos años. Esta segunda etapa francesa reafirmó su relación con el arte europeo y con los lenguajes plásticos más poéticos y simbólicos.</p>
+              </div>
+              
+              <!-- Final Years and Legacy -->
+              <div class="flex flex-col items-center gap-1">
+                <div class="w-[1.5px] bg-[#e7dae0] h-2"></div>
+                <div
+                  class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-6"
+                  style='background-image: url("../img/portada/Foto 028.jpg");'
+                ></div>
+                <div class="w-[1.5px] bg-[#e7dae0] h-2"></div>
+              </div>
+              <div class="flex flex-1 flex-col py-3">
+                <p class="text-[#181014] text-base font-medium leading-normal" data-i18n="about.etapa6_titulo">Últimos años y legado</p>
+                <p class="text-[#8d5e75] text-base font-normal leading-normal" data-i18n="about.etapa6_fecha">1979–1993</p>
+                <p class="text-[#181014] text-sm font-normal leading-normal mt-2" data-i18n="about.etapa6_texto">Establecido nuevamente en Buenos Aires, desarrolló una obra introspectiva, marcada por el paso de la no figuración a la figuración, evocando a los frescos renacentistas italianos. Falleció en 1993, dejando una obra enigmática, delicada y profunda.</p>
+              </div>
+              </div>
+              </div>
+              <!-- Fin de la columna izquierda -->
+              
+              <!-- Columna derecha para la imagen y citas -->
+              <div class="w-full md:w-[600px] lg:w-[800px]">
+                <div class="flex flex-col gap-4 sm:gap-6">
+                  <div class="p-3 bg-[#f4f0f2] rounded-lg shadow-md">
+                    <img
+                      src="../img/fotopropia/eduard1frt.jpg"
+                      alt="Eduardo Bendersky"
+                      class="w-full object-contain border-2 border-[#e7dae0] rounded-md shadow-sm"
+                      style="max-height: 1200px;"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div> <!-- Fin del contenedor principal de dos columnas -->
+      </div>
+    </main>
+    
+    <footer class="w-full bg-white mt-8 sm:mt-16">
+      <div class="flex justify-center">
+        <div class="flex max-w-[960px] flex-1 flex-col">
+          <div class="flex flex-col gap-4 sm:gap-6 px-3 sm:px-5 py-6 sm:py-10 text-center @container">
+            <div class="flex flex-wrap items-center justify-center gap-4 sm:gap-6 @[480px]:flex-row @[480px]:justify-around">
+              
+            </div>
+            <div class="flex flex-wrap justify-center gap-4">
+              <a href="#">
+                <div class="text-[#886375]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path
+                      d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
+                    ></path>
+                  </svg>
+                </div>
+              </a>
+              <a href="#">
+                <div class="text-[#886375]" data-icon="FacebookLogo" data-size="24px" data-weight="regular">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                    <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path>
+                  </svg>
+                </div>
+              </a>
+            </div>
+            <p class="text-[#886375] text-xs sm:text-base font-normal leading-normal" data-i18n="footer.derechos">© 2025 Eduardo Bendersky. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Script de traducciones -->
+    <script src="../js/translations.js"></script>
+    
+    <!-- Script para menú móvil -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+        
+        // Función para abrir el menú móvil
+        function openMobileMenu() {
+          mobileMenu.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Evitar scroll en el fondo
+        }
+        
+        // Función para cerrar el menú móvil
+        function closeMobileMenu() {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = ''; // Restaurar scroll
+        }
+        
+        // Eventos para abrir y cerrar el menú
+        hamburgerIcon.addEventListener('click', openMobileMenu);
+        closeMenu.addEventListener('click', closeMobileMenu);
+        
+        // Cerrar menú al hacer clic en un enlace
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', closeMobileMenu);
+        });
+      });
+    </script>
+  </body>
+</html>

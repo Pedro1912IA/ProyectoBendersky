@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Serif%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Eduardo Bendersky</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <style>
+      /* Estilos para menú móvil */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: 999;
+        flex-direction: column;
+      }
+
+      .hamburger-icon {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .desktop-menu {
+          display: none;
+        }
+        .hamburger-icon {
+          display: block;
+          cursor: pointer;
+        }
+      }
+    </style>
+  </head>
+
+
+  <body>
+    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: "Noto Serif", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f4f0f2] px-4 md:px-10 py-3">
+          <div class="flex items-center gap-4 text-[#181114]">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-[#181114] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <!-- Botón de idioma siempre visible -->
+            <button
+              class="language-toggle flex min-w-[70px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-3 bg-[#f5f0f2] text-[#181014] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">ES/EN</span>
+            </button>
+            
+            <!-- Menú de escritorio -->
+            <div class="desktop-menu hidden md:flex items-center gap-6 lg:gap-9">
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="index.html" data-i18n="nav.inicio">inicio</a> 
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/about.html" data-i18n="nav.trayectoria">Trayectoria</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/gallery.html" data-i18n="nav.galeria">Galería</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/contact.html" data-i18n="nav.contacto">Contacto</a>
+            </div>
+            
+            <!-- Icono hamburguesa para móvil -->
+            <button class="hamburger-icon md:hidden" id="mobile-menu-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </header>
+        
+        <!-- Menú móvil (oculto por defecto) -->
+        <div class="fixed inset-0 z-50 bg-white flex flex-col hidden" id="mobile-menu">
+          <div class="flex items-center justify-between p-4 border-b border-solid border-b-[#f5f0f2]">
+            <div class="flex items-center gap-4 text-[#181014]">
+              <div class="size-4">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h2 class="text-[#181014] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+            </div>
+            <button class="p-1" id="close-menu-button">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+          <div class="flex flex-col gap-6 p-6 text-lg">
+            <a class="text-[#181114] font-medium" href="index.html" data-i18n="nav.inicio">inicio</a> 
+            <a class="text-[#181114] font-medium" href="pages/about.html" data-i18n="nav.trayectoria">Trayectoria</a>
+            <a class="text-[#181114] font-medium" href="pages/gallery.html" data-i18n="nav.galeria">Galería</a>
+            <a class="text-[#181114] font-medium" href="pages/exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
+            <a class="text-[#181114] font-medium" href="pages/contact.html" data-i18n="nav.contacto">Contacto</a>
+            <button
+              class="language-toggle mt-4 self-center flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f5f0f2] text-[#181014] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">ES/EN</span>
+            </button>
+          </div>
+        </div>
+        <div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="w-full">
+              <div class="px-0 py-0 md:px-4 md:py-3">
+                <div
+                  class="w-full bg-center bg-no-repeat bg-cover flex flex-col justify-end overflow-hidden bg-white rounded-lg min-h-[250px] md:min-h-80"
+                  style='background-image: url("img/portada/Foto 028.jpg");'
+                ></div>
+              </div>
+            </div>
+            <h2 class="text-[#181114] tracking-light text-xl md:text-2xl lg:text-[28px] font-bold leading-tight px-2 md:px-4 text-center pb-3 pt-5" data-i18n="home.welcome">Bienvenidos al sitio oficial de Eduardo Bendersky.</h2>
+            <em class="text-[#181114] text-sm md:text-base font-normal leading-normal pb-3 pt-1 px-2 md:px-4 text-center" data-i18n="home.quote">
+              "El resultado no interesa. Lo importante es el devenir de los trabajos, pues te pone en actitud de recibir. Y a veces sucede."
+            </em>
+            <p class="text-[#181114] text-sm md:text-base font-normal leading-normal pb-3 pt-1 px-2 md:px-4 text-center" data-i18n="home.description">
+              Sumergite en el universo provocador de Eduardo Bendersky, donde cada obra cuestiona tus certezas y despierta emociones que van más allá de las palabras. El arte que encontrarás no se explica: se siente, se vive en lo más profundo, trascendiendo toda frontera o idioma.
+            </p>
+          </div>
+        </div>
+        <footer class="flex justify-center">
+          <div class="flex max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-4 md:px-5 py-8 md:py-10 text-center">
+              <div class="flex flex-wrap items-center justify-center gap-6 md:flex-row md:justify-around">
+              </div>
+              <div class="flex flex-wrap justify-center gap-4">
+                <a href="#">
+                  <div class="text-[#886375]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
+                      ></path>
+                    </svg>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="text-[#886375]" data-icon="FacebookLogo" data-size="24px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                      <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path>
+                    </svg>
+                  </div>
+                </a>
+              </div>
+              <p class="text-[#886375] text-sm md:text-base font-normal leading-normal" data-i18n="footer.copyright">© 2025 Eduardo Bendersky. All rights reserved.</p>
+            </footer>
+          </div>
+        </footer>
+      </div>
+    </div>
+    <!-- Script de traducciones -->
+    <script src="js/translations.js"></script>
+    
+    <!-- Script para menú móvil -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const closeMenuButton = document.getElementById('close-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Función para bloquear/desbloquear scroll
+        function toggleScrollLock() {
+          document.body.classList.toggle('overflow-hidden');
+        }
+        
+        // Abrir menú móvil
+        mobileMenuButton.addEventListener('click', function() {
+          mobileMenu.classList.remove('hidden');
+          toggleScrollLock();
+        });
+        
+        // Cerrar menú móvil
+        closeMenuButton.addEventListener('click', function() {
+          mobileMenu.classList.add('hidden');
+          toggleScrollLock();
+        });
+        
+        // Cerrar menú al hacer clic en enlaces
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.add('hidden');
+            toggleScrollLock();
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

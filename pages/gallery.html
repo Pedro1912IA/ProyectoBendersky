@@ -1,0 +1,549 @@
+<html>
+  <head>
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
+    <link
+      rel="stylesheet"
+      as="style"
+      onload="this.rel='stylesheet'"
+      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Serif%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
+    />
+
+    <title>Eduardo Bendersky</title>
+    <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      /* Estilos para el modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 0, 0.9);
+      }
+      
+      .modal-content {
+        margin: auto;
+        display: block;
+        max-width: 90%;
+        max-height: 90%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      
+      .close {
+        position: absolute;
+        top: 20px;
+        right: 35px;
+        color: #f1f1f1;
+        font-size: 40px;
+        font-weight: bold;
+        transition: 0.3s;
+        z-index: 1001;
+      }
+      
+      .close:hover,
+      .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+      }
+      
+      .painting-thumbnail {
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      
+      .painting-thumbnail:hover {
+        transform: scale(1.03);
+      }
+
+      /* Estilos para menú móvil */
+      .mobile-menu {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        z-index: 999;
+        flex-direction: column;
+        padding: 2rem;
+      }
+
+      .mobile-menu.active {
+        display: flex;
+      }
+
+      .mobile-menu-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .mobile-menu-links {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .mobile-menu-links a {
+        font-size: 1.25rem;
+        text-align: center;
+      }
+
+      .hamburger-icon {
+        display: none;
+      }
+
+      @media (max-width: 768px) {
+        .desktop-menu {
+          display: none;
+        }
+        .hamburger-icon {
+          display: block;
+          cursor: pointer;
+        }
+      }
+    </style>
+  </head>
+  <body><!-- Quitamos padding-bottom ya que el footer no estará fijo -->
+    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: "Noto Serif", "Noto Sans", sans-serif;'>
+      <div class="layout-container flex h-full grow flex-col">
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f2f2f2] px-4 md:px-10 py-3">
+          <div class="flex items-center gap-4 text-[#141414]">
+            <div class="size-4">
+              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  fill-rule="evenodd"
+                  clip-rule="evenodd"
+                  d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                  fill="currentColor"
+                ></path>
+              </svg>
+            </div>
+            <h2 class="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+          </div>
+          <div class="flex items-center gap-4">
+            <!-- Botón de idioma siempre visible -->
+            <button
+              class="language-toggle flex min-w-[70px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-3 bg-[#f2f2f2] text-[#141414] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">ES/EN</span>
+            </button>
+            
+            <!-- Menú de escritorio -->
+            <div class="desktop-menu hidden md:flex items-center gap-6 lg:gap-9">
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="../index.html">inicio</a> 
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="about.html">Trayectoria</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="gallery.html">Galería</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="exhibitions.html">Exposiciones</a>
+                <a class="text-[#181114] text-sm font-medium leading-normal" href="contact.html">Contacto</a>
+            </div>
+            
+            <!-- Icono hamburguesa para móvil -->
+            <div class="hamburger-icon" id="hamburger-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="3" y1="12" x2="21" y2="12"></line>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <line x1="3" y1="18" x2="21" y2="18"></line>
+              </svg>
+            </div>
+          </div>
+        </header>
+        
+        <!-- Menú móvil (oculto por defecto) -->
+        <div class="mobile-menu" id="mobile-menu">
+          <div class="mobile-menu-header">
+            <div class="flex items-center gap-4 text-[#141414]">
+              <div class="size-4">
+                <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M12.0799 24L4 19.2479L9.95537 8.75216L18.04 13.4961L18.0446 4H29.9554L29.96 13.4961L38.0446 8.75216L44 19.2479L35.92 24L44 28.7521L38.0446 39.2479L29.96 34.5039L29.9554 44H18.0446L18.04 34.5039L9.95537 39.2479L4 28.7521L12.0799 24Z"
+                    fill="currentColor"
+                  ></path>
+                </svg>
+              </div>
+              <h2 class="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em]">Eduardo Bendersky</h2>
+            </div>
+            <div class="close-menu" id="close-menu">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </div>
+          </div>
+          <div class="mobile-menu-links">
+            <a class="text-[#181114] font-medium" href="../index.html">inicio</a> 
+            <a class="text-[#181114] font-medium" href="about.html">Trayectoria</a>
+            <a class="text-[#181114] font-medium" href="gallery.html">Galería</a>
+            <a class="text-[#181114] font-medium" href="exhibitions.html">Exposiciones</a>
+            <a class="text-[#181114] font-medium" href="contact.html">Contacto</a>
+            <button
+              class="language-toggle mt-4 self-center flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-4 bg-[#f2f2f2] text-[#141414] text-sm font-bold leading-normal tracking-[0.015em]"
+            >
+              <span class="truncate">ES/EN</span>
+            </button>
+          </div>
+        </div>
+        <div class="gap-1 px-3 sm:px-6 flex flex-1 justify-center py-3 sm:py-5">
+          <div class="layout-content-container flex flex-col w-full max-w-xs sm:w-80">
+            <div class="relative">
+              <button id="coleccionesBtn" class="flex items-center gap-4 bg-white px-4 min-h-14 justify-between w-full">
+                <h2 class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] text-left" data-i18n="gallery.colecciones">Colecciones</h2>
+                <div class="shrink-0">
+                  <div class="text-[#141414] flex size-7 items-center justify-center" data-icon="CaretDown" data-size="24px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256" id="coleccionesIcon">
+                      <path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>
+                    </svg>
+                  </div>
+                </div>
+              </button>
+              <div id="coleccionesDropdown" class="hidden bg-white px-4 py-3 rounded-b-lg shadow-md absolute w-full z-10">
+                <ul class="space-y-2 text-[#141414] text-sm list-disc pl-5">
+                  <li>Museo de Tegucigalpa, Honduras.</li>
+                  <li>Museo Provincial "Emilio Caraffa", Córdoba.</li>
+                  <li>Museo Municipal "Dr. Genaro Pérez", Córdoba.</li>
+                  <li>Museo de Bellas Artes Dean Funes, Córdoba.</li>
+                  <li>Museo "Eduardo Sívori", Buenos Aires.</li>
+                  <li>Museo Nacional de Bellas Artes, Buenos Aires.</li>
+                  <li>Fondo Nacional de arte.</li>
+                  <li>Y colecciones privadas</li>
+                </ul>
+              </div>
+            </div>
+            
+            <script>
+              document.addEventListener('DOMContentLoaded', function() {
+                const coleccionesBtn = document.getElementById('coleccionesBtn');
+                const coleccionesDropdown = document.getElementById('coleccionesDropdown');
+                const coleccionesIcon = document.getElementById('coleccionesIcon');
+                
+                coleccionesBtn.addEventListener('click', function() {
+                  coleccionesDropdown.classList.toggle('hidden');
+                  
+                  // Cambiar el ícono entre flecha hacia abajo y hacia arriba
+                  if (coleccionesDropdown.classList.contains('hidden')) {
+                    coleccionesIcon.innerHTML = '<path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>';
+                  } else {
+                    coleccionesIcon.innerHTML = '<path d="M181.66,122.34a8,8,0,0,1-11.32,0L128,80,85.66,122.34a8,8,0,0,1-11.32-11.32l48-48a8,8,0,0,1,11.32,0l48,48A8,8,0,0,1,181.66,122.34Z"></path>';
+                  }
+                });
+                
+                // Cerrar el dropdown si se hace clic fuera de él
+                document.addEventListener('click', function(event) {
+                  if (!coleccionesBtn.contains(event.target) && !coleccionesDropdown.contains(event.target)) {
+                    coleccionesDropdown.classList.add('hidden');
+                    coleccionesIcon.innerHTML = '<path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"></path>';
+                  }
+                });
+              });
+            </script>
+          </div>
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+            <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#141414] tracking-light text-[28px] sm:text-[32px] font-bold leading-tight" data-i18n="gallery.titulo">Galería</p></div>
+            <h3 class="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4" data-i18n="gallery.pinturas">Pinturas al óleo</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 p-2 sm:p-4">
+              <!-- DSC_0008.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0008.jpg");'
+                onclick="openModal('../img/oleos/DSC_0008.jpg')"
+              >
+
+              </div>
+              
+              <!-- DSC_0011.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0011.jpg");'
+                onclick="openModal('../img/oleos/DSC_0011.jpg')"
+              >
+
+              </div>
+              
+              <!-- DSC_0017.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0017.jpg");'
+                onclick="openModal('../img/oleos/DSC_0017.jpg')"
+              >
+
+              </div>
+              
+              <!-- DSC_0046.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0046.jpg");'
+                onclick="openModal('../img/oleos/DSC_0046.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 006.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 006.jpg");'
+                onclick="openModal('../img/oleos/Foto 006.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 021.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 021.jpg");'
+                onclick="openModal('../img/oleos/Foto 021.jpg')"
+              >
+  
+              </div>
+              
+              <!-- Foto 025.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 025.jpg");'
+                onclick="openModal('../img/oleos/Foto 025.jpg')"
+              >
+   
+              </div>
+              
+              <!-- Foto 026.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 026.jpg");'
+                onclick="openModal('../img/oleos/Foto 026.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 034.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 034.jpg");'
+                onclick="openModal('../img/oleos/Foto 034.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 037.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 037.jpg");'
+                onclick="openModal('../img/oleos/Foto 037.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 073.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 073.jpg");'
+                onclick="openModal('../img/oleos/Foto 073.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 074.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 074.jpg");'
+                onclick="openModal('../img/oleos/Foto 074.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 076.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 076.jpg");'
+                onclick="openModal('../img/oleos/Foto 076.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 078.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 078.jpg");'
+                onclick="openModal('../img/oleos/Foto 078.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 079.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 079.jpg");'
+                onclick="openModal('../img/oleos/Foto 079.jpg')"
+              >
+
+              </div>
+            </div>
+            <h3 class="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4" data-i18n="gallery.dibujos">Dibujos</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 p-2 sm:p-4">
+              <!-- DB 001.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/dibujos/DB 001.jpg");'
+                onclick="openModal('../img/dibujos/DB 001.jpg')"
+              >
+              </div>
+              
+              <!-- DB 002.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/dibujos/DB 002.jpg");'
+                onclick="openModal('../img/dibujos/DB 002.jpg')"
+              >
+              </div>
+              
+              <!-- DB 003.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/dibujos/DB 003.jpg");'
+                onclick="openModal('../img/dibujos/DB 003.jpg')"
+              >
+              </div>
+              
+              <!-- DB 004.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/dibujos/DB 004.jpg");'
+                onclick="openModal('../img/dibujos/DB 004.jpg')"
+              >
+              </div>
+              
+              <!-- DB 005.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/dibujos/DB 005.jpg");'
+                onclick="openModal('../img/dibujos/DB 005.jpg')"
+              >
+              </div>
+              
+              <!-- DB 006.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/dibujos/DB 006.jpg");'
+                onclick="openModal('../img/dibujos/DB 006.jpg')"
+              >
+              </div>
+              
+              <!-- DB 007.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/dibujos/DB 007.jpg");'
+                onclick="openModal('../img/dibujos/DB 007.jpg')"
+              >
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="w-full bg-white">
+          <div class="flex justify-center">
+          <div class="flex max-w-[960px] flex-1 flex-col">
+            <footer class="flex flex-col gap-6 px-5 py-10 text-center @container">
+              <div class="flex flex-wrap items-center justify-center gap-6 @[480px]:flex-row @[480px]:justify-around">
+
+              </div>
+              <div class="flex flex-wrap justify-center gap-4">
+                <a href="#">
+                  <div class="text-[#757575]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                      <path
+                        d="M128,80a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160ZM176,24H80A56.06,56.06,0,0,0,24,80v96a56.06,56.06,0,0,0,56,56h96a56.06,56.06,0,0,0,56-56V80A56.06,56.06,0,0,0,176,24Zm40,152a40,40,0,0,1-40,40H80a40,40,0,0,1-40-40V80A40,40,0,0,1,80,40h96a40,40,0,0,1,40,40ZM192,76a12,12,0,1,1-12-12A12,12,0,0,1,192,76Z"
+                      ></path>
+                    </svg>
+                  </div>
+                </a>
+                <a href="#">
+                  <div class="text-[#886375]" data-icon="FacebookLogo" data-size="24px" data-weight="regular">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                      <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path>
+                    </svg>
+                  </div>
+                </a>
+              </div>
+              <p class="text-[#886375] text-base font-normal leading-normal">© 2025 Eduardo Bendersky. All rights reserved.</p>
+            </footer>
+          </div>
+        </div>
+      </footer>
+      </div>
+    </div>
+    
+    <!-- Modal para mostrar imágenes ampliadas -->
+    <div id="imageModal" class="modal">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <img class="modal-content" id="expandedImage">
+    </div>
+
+    <!-- Script para controlar el menú móvil -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeMenu = document.getElementById('close-menu');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = document.querySelectorAll('.mobile-menu-links a');
+        
+        // Abrir menú
+        hamburgerIcon.addEventListener('click', function() {
+          mobileMenu.classList.add('active');
+          document.body.style.overflow = 'hidden'; // Evitar scroll
+        });
+        
+        // Cerrar menú
+        closeMenu.addEventListener('click', function() {
+          mobileMenu.classList.remove('active');
+          document.body.style.overflow = ''; // Restaurar scroll
+        });
+        
+        // Cerrar menú al hacer clic en un enlace
+        mobileMenuLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = '';
+          });
+        });
+      });
+    </script>
+    
+    <script>
+      // Función para abrir el modal con la imagen seleccionada
+      function openModal(imageSrc) {
+        const modal = document.getElementById("imageModal");
+        const expandedImg = document.getElementById("expandedImage");
+        expandedImg.src = imageSrc;
+        modal.style.display = "block";
+      }
+      
+      // Función para cerrar el modal
+      function closeModal() {
+        document.getElementById("imageModal").style.display = "none";
+      }
+      
+      // Cerrar el modal al hacer clic fuera de la imagen
+      window.onclick = function(event) {
+        const modal = document.getElementById("imageModal");
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      }
+    </script>
+    <!-- Script de traducciones -->
+    <script src="../js/translations.js"></script>
+  </body>
+</html>
+
+
