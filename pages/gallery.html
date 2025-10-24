@@ -197,8 +197,8 @@
             </button>
           </div>
         </div>
-        <div class="gap-1 px-3 sm:px-6 flex flex-1 justify-center py-3 sm:py-5">
-          <div class="layout-content-container flex flex-col w-full max-w-xs sm:w-80">
+        <div class="gap-1 px-3 sm:px-6 flex flex-col sm:flex-row flex-1 justify-center py-3 sm:py-5">
+          <div class="layout-content-container flex flex-col w-full max-w-xs sm:w-80 order-2 sm:order-1">
             <div class="relative">
               <button id="coleccionesBtn" class="flex items-center gap-4 bg-white px-4 min-h-14 justify-between w-full">
                 <h2 class="text-[#141414] text-[22px] font-bold leading-tight tracking-[-0.015em] text-left" data-i18n="gallery.colecciones">Colecciones</h2>
@@ -251,19 +251,10 @@
               });
             </script>
           </div>
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+          <div class="layout-content-container flex flex-col max-w-[960px] flex-1 order-1 sm:order-2">
             <div class="flex flex-wrap justify-between gap-3 p-4"><p class="text-[#141414] tracking-light text-[28px] sm:text-[32px] font-bold leading-tight" data-i18n="gallery.titulo">Galería</p></div>
             <h3 class="text-[#141414] text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4" data-i18n="gallery.pinturas">Pinturas al óleo</h3>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 p-2 sm:p-4">
-              <!-- DSC_0008.jpg -->
-              <div
-                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
-                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0008.jpg");'
-                onclick="openModal('../img/oleos/DSC_0008.jpg')"
-              >
-
-              </div>
-              
               <!-- DSC_0011.jpg -->
               <div
                 class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
@@ -287,15 +278,6 @@
                 class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
                 style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0046.jpg");'
                 onclick="openModal('../img/oleos/DSC_0046.jpg')"
-              >
-
-              </div>
-              
-              <!-- Foto 006.jpg -->
-              <div
-                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
-                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 006.jpg");'
-                onclick="openModal('../img/oleos/Foto 006.jpg')"
               >
 
               </div>
@@ -372,20 +354,83 @@
 
               </div>
               
-              <!-- Foto 078.jpg -->
-              <div
-                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
-                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 078.jpg");'
-                onclick="openModal('../img/oleos/Foto 078.jpg')"
-              >
-
-              </div>
-              
               <!-- Foto 079.jpg -->
               <div
                 class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
                 style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 079.jpg");'
                 onclick="openModal('../img/oleos/Foto 079.jpg')"
+              >
+
+              </div>
+              
+              <!-- DSC_0020nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0020nueva.jpg");'
+                onclick="openModal('../img/oleos/DSC_0020nueva.jpg')"
+              >
+
+              </div>
+              
+              <!-- DSC_0028nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0028nueva.jpg");'
+                onclick="openModal('../img/oleos/DSC_0028nueva.jpg')"
+              >
+
+              </div>
+              
+              <!-- DSC_0054nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0054nueva.jpg");'
+                onclick="openModal('../img/oleos/DSC_0054nueva.jpg')"
+              >
+
+              </div>
+              
+              <!-- DSC_0064nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/DSC_0064nueva.jpg");'
+                onclick="openModal('../img/oleos/DSC_0064nueva.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 035nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 035nueva.jpg");'
+                onclick="openModal('../img/oleos/Foto 035nueva.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 065nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 065nueva.jpg");'
+                onclick="openModal('../img/oleos/Foto 065nueva.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 075nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 075nueva.jpg");'
+                onclick="openModal('../img/oleos/Foto 075nueva.jpg')"
+              >
+
+              </div>
+              
+              <!-- Foto 079nueva.jpg -->
+              <div
+                class="bg-cover bg-center flex flex-col gap-3 rounded-xl justify-end p-4 aspect-square painting-thumbnail"
+                style='background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%, rgba(0, 0, 0, 0.1) 100%, rgba(0, 0, 0, 0) 100%), url("../img/oleos/Foto 079nueva.jpg");'
+                onclick="openModal('../img/oleos/Foto 079nueva.jpg')"
               >
 
               </div>

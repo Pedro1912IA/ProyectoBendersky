@@ -31,12 +31,12 @@ const translations = {
       'en': 'Welcome to the official website of Eduardo Bendersky.'
     },
     'cita': {
-      'es': '"El resultado no interesa. Lo importante es el devenir de los trabajos, pues te pone en actitud de recibir. Y a veces sucede."',
-      'en': '"The result doesn\'t matter. What\'s important is the process of the work, as it puts you in a position to receive. And sometimes it happens."'
+      'es': '"El resultado no interesa. Lo importante es el devenir de los trabajos, pues te pone en actitud de recibir. Y a veces sucede." EB',
+      'en': '"The result doesn\'t matter. What\'s important is the process of the work, as it puts you in a position to receive. And sometimes it happens." EB'
     },
     'descripcion': {
-      'es': 'Sumergite en el universo provocador de Eduardo Bendersky, donde cada obra cuestiona tus certezas y despierta emociones que van más allá de las palabras. El arte que encontrarás no se explica: se siente, se vive en lo más profundo, trascendiendo toda frontera o idioma.',
-      'en': 'Explore the captivating world of Eduardo Bendersky, a bilingual artist whose work transcends linguistic boundaries. Immerse yourself in a collection of evocative pieces that speak to the soul, regardless of language.'
+      'es': 'El arte que encontrarás no se explica: se siente, se vive en lo más profundo, trascendiendo toda frontera o idioma.',
+      'en': 'Immerse yourself in a collection of evocative pieces that speak to the soul, regardless of language.'
     }
   },
   
@@ -99,8 +99,8 @@ const translations = {
       'en': 'Artistic expansion in Paris'
     },
     'etapa2_fecha': {
-      'es': '1952–1962',
-      'en': '1952–1962'
+      'es': '1952–1956',
+      'en': '1952–1956'
     },
     'etapa2_texto': {
       'es': 'Durante su primera residencia en París (1952-1962), vivió y trabajó inmerso en la escena artística europea. Estudió en el célebre Atelier 17 del grabador Stanley William Hayter, donde entró en contacto con corrientes del arte abstracto y surrealista. Su estilo comenzó a gestarse entre lo metafísico y lo introspectivo.',
