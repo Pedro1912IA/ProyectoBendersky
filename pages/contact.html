@@ -150,42 +150,51 @@
         <div class="px-4 sm:px-8 md:px-16 lg:px-40 flex flex-1 justify-center py-3 sm:py-5">
           <div class="layout-content-container flex flex-col w-full max-w-[512px] py-3 sm:py-5 flex-1">
             <h2 class="text-[#181014] tracking-light text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5" data-i18n="contact.titulo">Contacto</h2>
-            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-              <label class="flex flex-col min-w-40 flex-1">
-                <p class="text-[#181014] text-base font-medium leading-normal pb-2" data-i18n="contact.nombre_label">Name / Nombre</p>
-                <input
-                  placeholder="Tu nombre" data-i18n-placeholder="contact.nombre"
-                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181014] focus:outline-0 focus:ring-0 border border-[#e7dae0] bg-white focus:border-[#e7dae0] h-14 placeholder:text-[#8d5e75] p-[15px] text-base font-normal leading-normal"
-                  value=""
-                />
-              </label>
-            </div>
-            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-              <label class="flex flex-col min-w-40 flex-1">
-                <p class="text-[#181014] text-base font-medium leading-normal pb-2" data-i18n="contact.email_label">Email</p>
-                <input
-                  placeholder="Tu email" data-i18n-placeholder="contact.email"
-                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181014] focus:outline-0 focus:ring-0 border border-[#e7dae0] bg-white focus:border-[#e7dae0] h-14 placeholder:text-[#8d5e75] p-[15px] text-base font-normal leading-normal"
-                  value=""
-                />
-              </label>
-            </div>
-            <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
-              <label class="flex flex-col min-w-40 flex-1">
-                <p class="text-[#181014] text-base font-medium leading-normal pb-2" data-i18n="contact.mensaje_label">Message / Mensaje</p>
-                <textarea
-                  placeholder="Tu Mensaje" data-i18n-placeholder="contact.mensaje"
-                  class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181014] focus:outline-0 focus:ring-0 border border-[#e7dae0] bg-white focus:border-[#e7dae0] min-h-36 placeholder:text-[#8d5e75] p-[15px] text-base font-normal leading-normal"
-                ></textarea>
-              </label>
-            </div>
-            <div class="flex px-4 py-3 justify-center">
-              <button
-                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#7f003f] text-white text-sm font-bold leading-normal tracking-[0.015em]"
-              >
-                <span class="truncate" data-i18n="contact.enviar">Enviar</span>
-              </button>
-            </div>
+            <form action="https://formsubmit.co/eduardobenderskyartista@gmail.com" method="POST">
+              <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                  <p class="text-[#181014] text-base font-medium leading-normal pb-2" data-i18n="contact.nombre_label">Name / Nombre</p>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Tu nombre" data-i18n-placeholder="contact.nombre"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181014] focus:outline-0 focus:ring-0 border border-[#e7dae0] bg-white focus:border-[#e7dae0] h-14 placeholder:text-[#8d5e75] p-[15px] text-base font-normal leading-normal"
+                    required
+                  />
+                </label>
+              </div>
+              <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                  <p class="text-[#181014] text-base font-medium leading-normal pb-2" data-i18n="contact.email_label">Email</p>
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Tu email" data-i18n-placeholder="contact.email"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181014] focus:outline-0 focus:ring-0 border border-[#e7dae0] bg-white focus:border-[#e7dae0] h-14 placeholder:text-[#8d5e75] p-[15px] text-base font-normal leading-normal"
+                    required
+                  />
+                </label>
+              </div>
+              <div class="flex max-w-[480px] flex-wrap items-end gap-4 px-4 py-3">
+                <label class="flex flex-col min-w-40 flex-1">
+                  <p class="text-[#181014] text-base font-medium leading-normal pb-2" data-i18n="contact.mensaje_label">Message / Mensaje</p>
+                  <textarea
+                    name="message"
+                    placeholder="Tu Mensaje" data-i18n-placeholder="contact.mensaje"
+                    class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl text-[#181014] focus:outline-0 focus:ring-0 border border-[#e7dae0] bg-white focus:border-[#e7dae0] min-h-36 placeholder:text-[#8d5e75] p-[15px] text-base font-normal leading-normal"
+                    required
+                  ></textarea>
+                </label>
+              </div>
+              <div class="flex px-4 py-3 justify-center">
+                <button
+                  type="submit"
+                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#7f003f] text-white text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                  <span class="truncate" data-i18n="contact.enviar">Enviar</span>
+                </button>
+              </div>
+            </form>
             
           </div>
         </div>

@@ -11,11 +11,47 @@
       href="https://fonts.googleapis.com/css2?display=swap&amp;family=Noto+Serif%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
     />
 
-    <title>Eduardo Bendersky</title>
+    <title>Eduardo Bendersky - Artista argentino</title>
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
+    <link rel="canonical" href="https://eduardo-bendersky.vercel.app/" />
 
+    <!-- Meta SEO principal -->
+    <meta
+      name="description"
+      content="Sitio oficial del artista argentino Eduardo Bendersky. Obras, trayectoria, exposiciones y galería de pintura contemporánea."
+    />
+    <meta
+      name="keywords"
+      content="Eduardo Bendersky, arte, artista argentino, pintura contemporánea, exposiciones, galería de arte"
+    />
+    <meta name="author" content="Eduardo Bendersky" />
+    <meta name="robots" content="index,follow" />
+    <meta http-equiv="Content-Language" content="es" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Eduardo Bendersky - Sitio oficial" />
+    <meta
+      property="og:description"
+      content="Conocé la obra, trayectoria y exposiciones del artista argentino Eduardo Bendersky."
+    />
+    <meta property="og:image" content="https://eduardo-bendersky.vercel.app/img/portada/Foto%20028.jpg" />
+    <meta property="og:url" content="https://eduardo-bendersky.vercel.app/" />
+    <meta property="og:locale" content="es_AR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Eduardo Bendersky - Sitio oficial" />
+    <meta
+      name="twitter:description"
+      content="Obras, galería y exposiciones de Eduardo Bendersky, artista argentino de pintura contemporánea."
+    />
+    <meta name="twitter:image" content="https://eduardo-bendersky.vercel.app/img/portada/Foto%20028.jpg" />
+    <meta name="twitter:url" content="https://eduardo-bendersky.vercel.app/" />
+
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    
+
     <style>
       /* Estilos para menú móvil */
       .mobile-menu {
@@ -44,8 +80,30 @@
         }
       }
     </style>
-  </head>
 
+    <!-- Datos estructurados JSON-LD para SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Eduardo Bendersky",
+        "url": "https://eduardo-bendersky.vercel.app/",
+        "image": "https://eduardo-bendersky.vercel.app/img/portada/Foto%20028.jpg",
+        "jobTitle": "Artista plástico",
+        "description": "Artista argentino radicado en C.A.B.A., Argentina. Sitio oficial con obras, trayectoria y exposiciones de Eduardo Bendersky.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "C.A.B.A.",
+          "addressCountry": "AR"
+        },
+        "nationality": "Argentina",
+        "sameAs": [
+          "https://www.instagram.com/eduardobenderskyartista?igsh=MTBza25pMW96MTIwdg==",
+          "https://www.facebook.com/profile.php?id=61584047210070"
+        ]
+      }
+    </script>
+  </head>
 
   <body>
     <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: "Noto Serif", "Noto Sans", sans-serif;'>
@@ -71,16 +129,16 @@
             >
               <span class="truncate">ES/EN</span>
             </button>
-            
+
             <!-- Menú de escritorio -->
             <div class="desktop-menu hidden md:flex items-center gap-6 lg:gap-9">
-                <a class="text-[#181114] text-sm font-medium leading-normal" href="index.html" data-i18n="nav.inicio">inicio</a> 
-                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/about.html" data-i18n="nav.trayectoria">Trayectoria</a>
-                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/gallery.html" data-i18n="nav.galeria">Galería</a>
-                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
-                <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/contact.html" data-i18n="nav.contacto">Contacto</a>
+              <a class="text-[#181114] text-sm font-medium leading-normal" href="index.html" data-i18n="nav.inicio">inicio</a>
+              <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/about.html" data-i18n="nav.trayectoria">Trayectoria</a>
+              <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/gallery.html" data-i18n="nav.galeria">Galería</a>
+              <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
+              <a class="text-[#181114] text-sm font-medium leading-normal" href="pages/contact.html" data-i18n="nav.contacto">Contacto</a>
             </div>
-            
+
             <!-- Icono hamburguesa para móvil -->
             <button class="hamburger-icon md:hidden" id="mobile-menu-button">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -91,7 +149,7 @@
             </button>
           </div>
         </header>
-        
+
         <!-- Menú móvil (oculto por defecto) -->
         <div class="fixed inset-0 z-50 bg-white flex flex-col hidden" id="mobile-menu">
           <div class="flex items-center justify-between p-4 border-b border-solid border-b-[#f5f0f2]">
@@ -116,7 +174,7 @@
             </button>
           </div>
           <div class="flex flex-col gap-6 p-6 text-lg">
-            <a class="text-[#181114] font-medium" href="index.html" data-i18n="nav.inicio">inicio</a> 
+            <a class="text-[#181114] font-medium" href="index.html" data-i18n="nav.inicio">inicio</a>
             <a class="text-[#181114] font-medium" href="pages/about.html" data-i18n="nav.trayectoria">Trayectoria</a>
             <a class="text-[#181114] font-medium" href="pages/gallery.html" data-i18n="nav.galeria">Galería</a>
             <a class="text-[#181114] font-medium" href="pages/exhibitions.html" data-i18n="nav.exposiciones">Exposiciones</a>
@@ -128,7 +186,7 @@
             </button>
           </div>
         </div>
-        <div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+        <main class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5" role="main">
           <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
             <div class="w-full">
               <div class="px-0 py-0 md:px-4 md:py-3">
@@ -142,9 +200,7 @@
             <em class="text-[#181114] text-sm md:text-base font-normal leading-normal pb-3 pt-1 px-2 md:px-4 text-center" data-i18n="home.quote">
               "El resultado no interesa. Lo importante es el devenir de los trabajos, pues te pone en actitud de recibir. Y a veces sucede."
             </em>
-            <p class="text-[#181114] text-sm md:text-base font-normal leading-normal pb-3 pt-1 px-2 md:px-4 text-center" data-i18n="home.description">
-               
-            </p>
+            
           </div>
         </div>
         <footer class="flex justify-center">
@@ -153,7 +209,7 @@
               <div class="flex flex-wrap items-center justify-center gap-6 md:flex-row md:justify-around">
               </div>
               <div class="flex flex-wrap justify-center gap-4">
-                <a href="#">
+                <a href="https://www.instagram.com/eduardobenderskyartista?igsh=MTBza25pMW96MTIwdg==" target="_blank" rel="noopener noreferrer">
                   <div class="text-[#886375]" data-icon="InstagramLogo" data-size="24px" data-weight="regular">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                       <path
@@ -162,7 +218,7 @@
                     </svg>
                   </div>
                 </a>
-                <a href="#">
+                <a href="https://www.facebook.com/profile.php?id=61584047210070" target="_blank" rel="noopener noreferrer">
                   <div class="text-[#886375]" data-icon="FacebookLogo" data-size="24px" data-weight="regular">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
                       <path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm8,191.63V152h24a8,8,0,0,0,0-16H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,0-16H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0,0,16h24v63.63a88,88,0,1,1,16,0Z"></path>

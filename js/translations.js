@@ -33,10 +33,6 @@ const translations = {
     'cita': {
       'es': '"El resultado no interesa. Lo importante es el devenir de los trabajos, pues te pone en actitud de recibir. Y a veces sucede." EB',
       'en': '"The result doesn\'t matter. What\'s important is the process of the work, as it puts you in a position to receive. And sometimes it happens." EB'
-    },
-    'descripcion': {
-      'es': 'El arte que encontrarás no se explica: se siente, se vive en lo más profundo, trascendiendo toda frontera o idioma.',
-      'en': 'Immerse yourself in a collection of evocative pieces that speak to the soul, regardless of language.'
     }
   },
   
